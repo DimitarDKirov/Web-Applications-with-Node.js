@@ -33,17 +33,17 @@ const modelName = 'Laptop';
 
 const Laptop = mongoose.model(modelName, modelSchema);
 
-// const asus = new Laptop({
-//     model: 'Asus G752',
-//     releaseDate: new Date(2016, 10, 29),
-//     priceInDollars: 'fasfafsa',
-//     displaySizeInInches: 17.3
-// });
+const asus = new Laptop({
+    model: 'Asus G752',
+    releaseDate: new Date(2016, 10, 29),
+    priceInDollars: 400,
+    displaySizeInInches: 17.3
+});
 
-// asus.save((err, entry, numAffected) => {
-//     console.log(entry);
-//     console.log(numAffected);
-// });
+asus.save((err, entry, numAffected) => {
+    console.log(entry);
+    console.log(numAffected);
+});
 
 // ========================================
 //              Nested Schemas
@@ -220,39 +220,31 @@ query.exec();
 //       Custom Validators
 // ========================================
 
-// const stringSizeValidator = [
-//     function (val) {
-//         return val.length > 0 && val.length <= 60;
-//     },
-//     'String must be between 1 and 60 characters long'
-// ];
+const numbersSchema = mongoose.Schema({
+    value: {
+        type: Number,
+        required: true,
+        // validate: function (v) {
+        //     return v % 2 === 0;
+        // }
+        validate: {
+            validator: function (v) {
+                return v % 2 === 0;
+            },
+            message: '{VALUE} in not valid'
+        }
+    }
+});
 
-// const numberValidator = [
-//     function (val) {
-//         return ((val % 2) === 0);
-//     },
-//     'The number assigned is odd. Only even numbers allowed'
-// ]
+const Num = mongoose.model('Num', numbersSchema);
+const myNum = new Num({
+    value: 3
+});
 
-// const numbersSchema = mongoose.Schema({
-//     value: {
-//         type: Number,
-//         required: true,
-//         validate: function (v) {
-//             return v % 2 === 0;
-//         }
-//     }
-// });
-
-// const Num = mongoose.model('Num', numbersSchema);
-// const myNum = new Num({
-//     value: 3
-// });
-
-// myNum.save((err, result) => {
-//     console.log(err);
-//     console.log(result);
-// })
+myNum.save(function (err, result) {
+    console.log(err);
+    console.log(result);
+});
 
 // var personSchema = new Schema({
 //     firstName: {
