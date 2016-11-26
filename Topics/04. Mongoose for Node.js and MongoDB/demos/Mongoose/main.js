@@ -134,36 +134,36 @@ asus.save((err, entry, numAffected) => {
 //          Working with collections
 // ========================================
 // You can query the database collections through the created mongoose models
-// Laptop.find((err, laptops) => {
-//     if (err) {
-//         console.log(err);
-//     }
+Laptop.find((err, laptops) => {
+    if (err) {
+        console.log(err);
+    }
 
-//     console.log(laptops);
-// });
+    console.log(laptops);
+});
 
-const productId = '582ae9dea411eb534839a7ec';
-// const filter = {
-//     priceInDollars: { $gt: 1200, $lt: 1600}
-// };
+const productId = '5838b0aeab3b7b32aca72fd1';
+const filter = {
+    priceInDollars: { $gt: 1200, $lt: 1600 }
+};
 
-// Laptop.find(filter, (err, laptops) => {
-//     for(let i = 0; i< laptops.length; i+=1){
-//         console.log(laptops[i]);
-//     }
-// });
+Laptop.find(filter, (err, laptops) => {
+    for (let i = 0; i < laptops.length; i += 1) {
+        console.log(laptops[i]);
+    }
+});
 
-// Laptop.findByIdAndUpdate(
-//     productId,
-//     { $set: { priceInDollars: 1500 } },
-//     { new: true },
-//     (err, result) => {
-//         console.log(result);
-//     })
+Laptop.findByIdAndUpdate(
+    productId,
+    { $set: { priceInDollars: 1500 } },
+    { new: true },
+    (err, result) => {
+        console.log(result);
+    })
 
-// Laptop.findById(productId, (err, laptop) => {
-//     console.log(laptop.getDetailedDescription());
-// });
+Laptop.findById(productId, (err, laptop) => {
+    console.log(laptop);
+});
 
 const query = Laptop.find()
     .where({
@@ -182,7 +182,10 @@ const query = Laptop.find()
     .limit(3);
 
 
-query.exec();
+query.exec((err, res) => {
+    console.log(res);
+
+});
 
 // ========================================
 //       Built-in Property Validators
@@ -220,31 +223,33 @@ query.exec();
 //       Custom Validators
 // ========================================
 
-const numbersSchema = mongoose.Schema({
-    value: {
-        type: Number,
-        required: true,
-        // validate: function (v) {
-        //     return v % 2 === 0;
-        // }
-        validate: {
-            validator: function (v) {
-                return v % 2 === 0;
-            },
-            message: '{VALUE} in not valid'
-        }
-    }
-});
+// const numbersSchema = mongoose.Schema({
+//     value: {
+//         type: Number,
+//         required: true,
+//         //default message
+//         // validate: function (v) {
+//         //     return v % 2 === 0;
+//         // }
+//         //custom message
+//         validate: {
+//             validator: function (v) {
+//                 return v % 2 === 0;
+//             },
+//             message: '{VALUE} in not valid'
+//         }
+//     }
+// });
 
-const Num = mongoose.model('Num', numbersSchema);
-const myNum = new Num({
-    value: 3
-});
+// const Num = mongoose.model('Num', numbersSchema);
+// const myNum = new Num({
+//     value: 3
+// });
 
-myNum.save(function (err, result) {
-    console.log(err);
-    console.log(result);
-});
+// myNum.save(function (err, result) {
+//     console.log(err);
+//     console.log(result);
+// });
 
 // var personSchema = new Schema({
 //     firstName: {
@@ -261,55 +266,55 @@ myNum.save(function (err, result) {
 
 
 
-// function fillComputersData() {
-//     const laptops = [
-//         new Laptop({
-//             model: 'Asus G753',
-//             releaseDate: new Date(2016, 10, 30),
-//             priceInDollars: 1899,
-//             displaySizeInInches: 17.3
-//         }),
-//         new Laptop({
-//             model: 'Asus G754',
-//             releaseDate: new Date(2016, 11, 1),
-//             priceInDollars: 1779,
-//             displaySizeInInches: 17.6
-//         }),
-//         new Laptop({
-//             model: 'Asus G756',
-//             releaseDate: new Date(2016, 10, 30),
-//             priceInDollars: 1899,
-//             displaySizeInInches: 17.3
-//         }),
-//         new Laptop({
-//             model: 'Asus G757',
-//             releaseDate: new Date(2016, 11, 3),
-//             priceInDollars: 2199,
-//             displaySizeInInches: 17.6
-//         }),
-//         new Laptop({
-//             model: 'Asus G758',
-//             releaseDate: new Date(2016, 11, 4),
-//             priceInDollars: 2299,
-//             displaySizeInInches: 18.2
-//         }),
-//         new Laptop({
-//             model: 'Asus G759',
-//             releaseDate: new Date(2016, 11, 5),
-//             priceInDollars: 2399,
-//             displaySizeInInches: 18.2
-//         }),
-//         new Laptop({
-//             model: 'Asus G760',
-//             releaseDate: new Date(2016, 11, 6),
-//             priceInDollars: 2799,
-//             displaySizeInInches: 18.2
-//         })
-//     ];
+function fillComputersData() {
+    const laptops = [
+        new Laptop({
+            model: 'Asus G753',
+            releaseDate: new Date(2016, 10, 30),
+            priceInDollars: 1899,
+            displaySizeInInches: 17.3
+        }),
+        new Laptop({
+            model: 'Asus G754',
+            releaseDate: new Date(2016, 11, 1),
+            priceInDollars: 1779,
+            displaySizeInInches: 17.6
+        }),
+        new Laptop({
+            model: 'Asus G756',
+            releaseDate: new Date(2016, 10, 30),
+            priceInDollars: 1899,
+            displaySizeInInches: 17.3
+        }),
+        new Laptop({
+            model: 'Asus G757',
+            releaseDate: new Date(2016, 11, 3),
+            priceInDollars: 2199,
+            displaySizeInInches: 17.6
+        }),
+        new Laptop({
+            model: 'Asus G758',
+            releaseDate: new Date(2016, 11, 4),
+            priceInDollars: 2299,
+            displaySizeInInches: 18.2
+        }),
+        new Laptop({
+            model: 'Asus G759',
+            releaseDate: new Date(2016, 11, 5),
+            priceInDollars: 2399,
+            displaySizeInInches: 18.2
+        }),
+        new Laptop({
+            model: 'Asus G760',
+            releaseDate: new Date(2016, 11, 6),
+            priceInDollars: 2799,
+            displaySizeInInches: 18.2
+        })
+    ];
 
-//     for (var index in laptops) {
-//         laptops[index].save();
-//     }
-// }
+    for (var index in laptops) {
+        laptops[index].save();
+    }
+}
 
 // fillComputersData();
